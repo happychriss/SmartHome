@@ -1,0 +1,14 @@
+rule "DASH Kueche"
+when
+    Item Dash_Purina received update ON
+then
+    logInfo("amazondashbutton", "My Dash *Kueche* has been pressed!")
+    if(Ambient_Kueche_Toggle.state == ON)
+    {
+            sendCommand(Ambient_Kueche_Dimmer,OFF)
+    }
+    else {
+            sendCommand(Ambient_Kueche_Dimmer,ON)
+    }
+end
+

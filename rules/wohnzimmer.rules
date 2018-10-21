@@ -1,0 +1,15 @@
+// Stehlampe ************************************************************
+rule "Dash Wohnzimmer Stehlampe"
+when
+    Item Dash_Nivea received update ON
+then
+    logInfo("amazondashbutton", "My Dash *Wohn* has been pressed")
+    if(Sonoff3.state == ON)
+    {
+            sendCommand(Sonoff3,OFF)
+    }
+    else {
+            sendCommand(Sonoff3,ON)
+    }
+end
+

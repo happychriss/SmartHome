@@ -1,0 +1,65 @@
+// Welcome....all lights on
+Group:Switch:OR(ON, OFF) Lights 		"All Family Lights [(%d)]" 	
+
+// **************************************************************************************
+// Vacation Simulator
+
+Switch AlarmMode
+Group Lights_Random
+
+
+// ****************************************************************************************
+// Group Arbeitszimmer
+
+// Deckenleuchte
+Switch	Hue_Dimm_Toggle	(Lights,Lights_Random)	{ channel="hue:0100:1:1:brightness" }
+Dimmer	Hue_Dimm_Dimmer	                    	{ channel="hue:0100:1:1:brightness" }
+
+// Stehlampe
+Switch Sonoff1 "Stehlampe" <light> (LR,gLight,Lights,Lights_Random) { mqtt="<[sonoff:stat/sonoff1/POWER:state:default], >[sonoff:cmnd/sonoff1/POWER:command:*:default]" }  
+
+// Switch on/off
+Switch SmartSwitch1 //Stehlampe
+Switch SmartSwitch2 //Deckenleuchte
+
+
+// ****************************************************************************************
+// Group Wohnzimmer
+
+// Deckenleuchte
+Switch	Ikea_Stimmung_Toggle	(Lights,Lights_Random)	{ channel="hue:0220:1:4:brightness" }
+Dimmer	Ikea_Stimmung_Dimmer	                    	{ channel="hue:0220:1:4:brightness" }
+Dimmer	Ikea_Stimmung_ColorTemp	                    	{ channel="hue:0220:1:4:color_temperature" }
+
+// Stehlampe 
+Switch Sonoff3 "StehlampeWohn" <light> (LR,gLight,Lights,Lights_Random) { mqtt="<[sonoff:stat/sonoff3/POWER:state:default], >[sonoff:cmnd/sonoff3/POWER:command:*:default]" }  
+
+// Switch on/off
+Switch Dash_Nivea //Stehlampe
+
+// ****************************************************************************************
+// Group Kueche
+// Switch	Ikea_Dimm_Toggle	(Light,Lights_Random)	{ channel="hue:0100:1:5:brightness" } // old, this liked keeps blinking
+// Dimmer	Ikea_Dimm_Dimmer	(Light)	{ channel="hue:0100:1:5:brightness" } // old, this liked keeps blinking
+
+// Deckenlampe
+Switch	Ambient_Kueche_Toggle	(Lights,Lights_Random)	{ channel="hue:0220:1:6:brightness" }
+Dimmer	Ambient_Kueche_Dimmer	                        { channel="hue:0220:1:6:brightness" }
+Dimmer	Ambient_Kueche_ColorTemp	                    { channel="hue:0220:1:6:color_temperature" }
+
+// Switch on/off
+Switch  Dash_Purina
+
+// ****************************************************************************************
+// *** Enable Alarm
+Switch  Dash_Nerf
+
+// ****************************************************************************************
+// Group Schlafzimmer
+Switch  Dash_GBC_1
+
+
+// ****************************************************************************************
+// DASH unassigned
+Switch  Dash_GBC_2
+Switch  Dash_PPT_1

@@ -1,0 +1,36 @@
+
+// Stehlampe ************************************************************
+rule "SmartSwitch1 Arbeitszimmer Stehlampe ON"
+when
+    Item SmartSwitch1 received update ON
+then
+    logInfo("Arbeitszimmer - Sonoff1 Stehlampe", "SW-1 Pressed: OFF") 
+    sendCommand(Sonoff1,OFF)
+end
+
+rule "SmartSwitch1 Arbeitszimmer Stehlampe OFF"
+when
+    Item SmartSwitch1 received update OFF
+then
+    logInfo("Arbeitszimmer - Sonoff1 Stehlampe", "SW-1 Pressed: ON") 
+    sendCommand(Sonoff1,ON)
+end
+
+
+// Deckenlampe ************************************************************
+
+rule "SmartSwitch2 Arbeitszimmer Deckenlampe ON"
+when
+    Item SmartSwitch2 received update ON
+then
+    logInfo("Arbeitszimmer - Deckenlampe", "SW-2 Pressed: OFF") 
+    sendCommand(Hue_Dimm_Toggle,OFF)
+end
+
+rule "SmartSwitch2 Arbeitszimmer Deckenlampe OFF"
+when
+    Item SmartSwitch2 received update OFF
+then
+    logInfo("Arbeitszimmer - Deckenlampe", "SW-2 Pressed: ON") 
+    sendCommand(Hue_Dimm_Toggle,ON)
+end
