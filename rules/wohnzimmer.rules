@@ -3,13 +3,28 @@ rule "Dash Wohnzimmer Stehlampe"
 when
     Item Dash_Nivea received update ON
 then
-    logInfo("amazondashbutton", "My Dash *Wohn* has been pressed")
+    logInfo("amazondashbutton", "My Dash *Wohn-Stehlampe* has been pressed")
     if(Sonoff3.state == ON)
     {
             sendCommand(Sonoff3,OFF)
     }
     else {
             sendCommand(Sonoff3,ON)
+            sendCommand(Ikea_Stimmung_Toggle,OFF) //switch off the decke
+
     }
 end
 
+rule "DASH Wohnzimmer Decke"
+when
+    Item Dash_GBC_1 received update ON
+then
+    logInfo("amazondashbutton", "My Dash *Wohn-Decke* has been pressed!")
+    if(Ikea_Stimmung_Toggle.state == ON)
+    {
+            sendCommand(Ikea_Stimmung_Toggle,OFF)
+    }
+    else {
+            sendCommand(Ikea_Stimmung_Toggle,ON)
+    }
+end

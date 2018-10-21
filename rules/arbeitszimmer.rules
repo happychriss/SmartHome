@@ -34,3 +34,19 @@ then
     logInfo("Arbeitszimmer - Deckenlampe", "SW-2 Pressed: ON") 
     sendCommand(Hue_Dimm_Toggle,ON)
 end
+
+rule "DASH Arbeitszimmer"
+when
+    Item Dash_GBC_2 received update ON
+then
+    logInfo("amazondashbutton", "My Dash *Arbeit-All* has been pressed!")
+    if(Hue_Dimm_Toggle.state == ON)
+    {
+            sendCommand(Hue_Dimm_Toggle,OFF)
+            sendCommand(Sonoff1,OFF)
+    }
+    else {
+            sendCommand(Hue_Dimm_Toggle,ON)
+            sendCommand(Sonoff1,ON)
+    }
+end

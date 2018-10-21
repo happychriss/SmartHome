@@ -36,6 +36,7 @@ Switch Sonoff3 "StehlampeWohn" <light> (LR,gLight,Lights,Lights_Random) { mqtt="
 
 // Switch on/off
 Switch Dash_Nivea //Stehlampe
+Switch Dash_GBC_1 //Deckenlamp
 
 // ****************************************************************************************
 // Group Kueche
@@ -55,11 +56,10 @@ Switch  Dash_Purina
 Switch  Dash_Nerf
 
 // ****************************************************************************************
-// Group Schlafzimmer
-Switch  Dash_GBC_1
-
+// Group Schlafzimmer - all light off
+Switch  Dash_PPT_1
 
 // ****************************************************************************************
 // DASH unassigned
 Switch  Dash_GBC_2
-Switch  Dash_PPT_1
+
