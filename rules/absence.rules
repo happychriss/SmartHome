@@ -7,12 +7,13 @@ when
     Item Dash_Nerf received update ON
 then
     logInfo("amazondashbutton", "My Dash *Alarm On* has been pressed")
-    if(AlarmMode.state == ON)
+    if(AbsenceMode.state == ON)
     {
-            sendCommand(AlarmMode,OFF)
+            sendCommand(AbsenceMode,OFF)
     }
     else {
-            sendCommand(AlarmMode,ON)
+            sendCommand(AbsenceMode,ON)
+			sendCommand(FRITZDECT3011Arbeitszimmer_RadiatorMode,'OFF')
     }
 end
 
@@ -27,9 +28,9 @@ end
 
 rule "Absence Alarm ON"
 when
-    Item AlarmMode received update
+    Item AbsenceMode received update
 then
-  if(AlarmMode.state == ON)
+  if(AbsenceMode.state == ON)
   {
 	logInfo("absense_rule", "Alarm Mode was enabled")    
 	Lights_Random.members.forEach [s | logInfo("absense_rule", s.name + " equals " + s.state.toString)]
@@ -48,7 +49,7 @@ when
 	Time cron "0 */10 7-23 * * ?"
 then
     logInfo("absense_rule", "chron triggered")        
-	if (AlarmMode.state == ON) {
+	if (AbsenceMode.state == ON) {
         if (NightActive==1) {
             logInfo("absense_rule", "Absence - Random Light Setting Active")    
 		    // Only turn a light on/off ocasionally
@@ -72,7 +73,7 @@ rule "Turn all lights off at 23.10 if alarm is activated"
 when
 	Time cron "0 10 23 * * ?"
 then
-	if (AlarmMode.state == ON) {
+	if (AbsenceMode.state == ON) {
 	 	logInfo("org.openhab","Turning all the random lights off.")
 	 	sendCommand(Lights_Random, OFF)
         NightActive=0

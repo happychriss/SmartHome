@@ -1,0 +1,45 @@
+rule "Heating - Night Mode - Switch off at night"
+when
+	Time cron "0 0 23 1/1 * ? *"
+then
+        sendCommand(FRITZDECT3011Arbeitszimmer_RadiatorMode,'OFF')    
+end
+
+rule "Heating - Day Save Mode - Workday Switch to ECO during normal day"
+when
+	Time cron "0 0 8 ? * MON,TUE,WED,THU,FRI *"
+then
+    if(AbsenceMode.state == ON) {
+        logInfo("heating","Heating remains off - ABSENCE MODE") 
+
+    } else {
+        sendCommand(FRITZDECT3011Arbeitszimmer_RadiatorMode,'ECO')    
+    }
+end
+
+// Make it warm at weekend and in the evening
+
+rule "Heating - Weekend Warm Mode - Switch to COMFORT all day"
+when
+	Time cron "0 0 9 ? * SAT,SUN *"
+then
+    if(AbsenceMode.state == ON) {
+        logInfo("heating","Heating remains off - ABSENCE MODE") 
+
+    } else {
+        sendCommand(FRITZDECT3011Arbeitszimmer_RadiatorMode,'COMFORT')    
+    }
+end
+
+rule "Heating - Workday Warm Mode - Switch to COMFORT in the evening"
+when
+	Time cron "0 0 19 ? * MON,TUE,WED,THU,FRI *"
+then
+    if(AbsenceMode.state == ON) {
+        logInfo("heating","Heating remains off - ABSENCE MODE") 
+    } else {
+        sendCommand(FRITZDECT3011Arbeitszimmer_RadiatorMode,'COMFORT')    
+    }
+end
+
+

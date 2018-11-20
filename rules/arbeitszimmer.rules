@@ -50,3 +50,8 @@ then
             sendCommand(Sonoff1,ON)
     }
 end
+
+
+
+
+

@@ -4,4 +4,5 @@ when
 then
     logInfo("amazondashbutton", "My Dash *Schlafzimmer* has been pressed!")
     sendCommand(Lights,OFF)
+    sendCommand(FRITZDECT3011Arbeitszimmer_RadiatorMode,OFF)
 end
