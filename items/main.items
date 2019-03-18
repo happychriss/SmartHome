@@ -16,7 +16,8 @@ Switch	Hue_Dimm_Toggle	(Lights,Lights_Random)	{ channel="hue:0100:1:1:brightness
 Dimmer	Hue_Dimm_Dimmer	                    	{ channel="hue:0100:1:1:brightness" }
 
 // Stehlampe
-Switch Sonoff1 "Stehlampe" <light> (LR,gLight,Lights,Lights_Random) { mqtt="<[sonoff:stat/sonoff1/POWER:state:default], >[sonoff:cmnd/sonoff1/POWER:command:*:default]" }  
+// Switch Sonoff1 "Stehlampe" <light> (LR,gLight,Lights,Lights_Random) { mqtt="<[sonoff:stat/sonoff1/POWER:state:default], >[sonoff:cmnd/sonoff1/POWER:command:*:default]" }  
+Switch Sonoff1 "Stehlampe" <light> (LR,gLight,Lights,Lights_Random) ["Switchable"] { channel="mqtt:topic:OH2mqtt:sonoff1:ch1" }
 
 // Switch on/off
 Switch SmartSwitch1 //Stehlampe
@@ -32,7 +33,9 @@ Dimmer	Ikea_Stimmung_Dimmer	                    	{ channel="hue:0220:1:4:brightn
 Dimmer	Ikea_Stimmung_ColorTemp	                    	{ channel="hue:0220:1:4:color_temperature" }
 
 // Stehlampe 
-Switch Sonoff3 "StehlampeWohn" <light> (LR,gLight,Lights,Lights_Random) { mqtt="<[sonoff:stat/sonoff3/POWER:state:default], >[sonoff:cmnd/sonoff3/POWER:command:*:default]" }  
+// Switch Sonoff3 "StehlampeWohn" <light> (LR,gLight,Lights,Lights_Random) { mqtt="<[sonoff:stat/sonoff3/POWER:state:default], >[sonoff:cmnd/sonoff3/POWER:command:*:default]" }  
+
+Switch Sonoff3 "StehlampeWohn" <light> (LR,gLight,Lights,Lights_Random) ["Switchable"] { channel="mqtt:topic:OH2mqtt:sonoff3:ch1" }
 
 // Switch on/off
 Switch Dash_Nivea //Stehlampe
