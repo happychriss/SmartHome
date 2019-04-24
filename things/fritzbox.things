@@ -1,3 +1,3 @@
-Bridge avmfritz:fritzbox:1 "FRITZ!Box" [ ipAddress="192.168.1.1", password="@Martin12", user="cneuhaus" ] {
+Bridge avmfritz:fritzbox:1 "FRITZ!Box" [ ipAddress="192.168.1.1", password="@Martin12", user="openhab" ] {
     Thing FRITZ_DECT_301 099950124754 "FRITZ!DECT 301 #1 Arbeitszimmer" [ ain="099950124754" ]
 }
