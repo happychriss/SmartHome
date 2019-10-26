@@ -1,3 +1,4 @@
+// DECT Heizung
 String               FRITZDECT3011Arbeitszimmer_Mode           "Mode"                        {channel="avmfritz:FRITZ_DECT_301:1:099950124754:mode"}
 Contact              FRITZDECT3011Arbeitszimmer_Locked         "Device locked (external)"    {channel="avmfritz:FRITZ_DECT_301:1:099950124754:locked"}
 Contact              FRITZDECT3011Arbeitszimmer_DeviceLocked   "Locked (manual)"             {channel="avmfritz:FRITZ_DECT_301:1:099950124754:device_locked"}
@@ -10,4 +11,7 @@ String               FRITZDECT3011Arbeitszimmer_RadiatorMode   "Radiator mode"  
 DateTime             FRITZDECT3011Arbeitszimmer_NextChange     "Next Setpoint Change"        {channel="avmfritz:FRITZ_DECT_301:1:099950124754:next_change"}
 Number:Temperature   FRITZDECT3011Arbeitszimmer_NextTemp       "Next Setpoint Temperature"   {channel="avmfritz:FRITZ_DECT_301:1:099950124754:next_temp"}
 Switch               FRITZDECT3011Arbeitszimmer_BatteryLow     "Low Battery"                 {channel="avmfritz:FRITZ_DECT_301:1:099950124754:battery_low"}
-                                                                                                    
+
+// Anwesenheit
+Contact cFboxMacOnline      "Presence (WiFi) [%s]"      {fritzboxtr064="maconline:8C-F5-A3-8E-26-34" }
+                                                                                  
