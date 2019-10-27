@@ -1,0 +1,9 @@
+rule "Init"
+when
+	System started
+then
+ AbsenceMode.state=OFF
+ CNOut.state=OFF
+ ANOut.state=OFF
+ AbsenceWifi.state=OFF
+end

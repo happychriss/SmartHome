@@ -9,6 +9,14 @@ Group Lights_Random
 
 
 // ****************************************************************************************
+// Detect Absence
+
+Switch ANOut 
+Switch CNOut
+Switch AbsenceWifi
+
+
+// ****************************************************************************************
 // Group Arbeitszimmer
 
 // Deckenleuchte

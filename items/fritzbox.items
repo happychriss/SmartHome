@@ -13,5 +13,5 @@ Number:Temperature   FRITZDECT3011Arbeitszimmer_NextTemp       "Next Setpoint Te
 Switch               FRITZDECT3011Arbeitszimmer_BatteryLow     "Low Battery"                 {channel="avmfritz:FRITZ_DECT_301:1:099950124754:battery_low"}
 
 // Anwesenheit
-Contact cFboxMacOnline      "Presence (WiFi) [%s]"      {fritzboxtr064="maconline:8C-F5-A3-8E-26-34" }
-                                                                                  
+Contact cFboxMacOnline_cn      "CN Presence (WiFi) [%s]"      {fritzboxtr064="maconline:8C-F5-A3-8E-26-34" }
+Contact cFboxMacOnline_an      "AN Presence (WiFi) [%s]"      {fritzboxtr064="maconline:58-48-22-A3-8C-CF" }
