@@ -19,10 +19,10 @@ end
 
 rule "SetNight"
 when
-    Channel 'astro:sun:home:astroDusk#event' triggered START
+    Channel 'astro:sun:home:civilDusk#event' triggered START
 	
 then
-    logInfo("absense_rule", "Astro - Sun Down (AstroDusk")    
+    logInfo("absense_rule", "Astro - Sun Down (civlDusk")    
     NightActive=1
 end
 
