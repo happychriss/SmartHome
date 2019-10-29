@@ -9,11 +9,20 @@ then
     logInfo("amazondashbutton", "My Dash *Alarm On* has been pressed")
     if(AbsenceMode.state == ON)
     {
-            sendCommand(AbsenceMode,OFF)
+        sendCommand(AbsenceMode,OFF)
+		
+		// Welcome, enable kitchen light
+		sendCommand(Ambient_Kueche_Toggle,ON)
+
     }
     else {
-            sendCommand(AbsenceMode,ON)
-			sendCommand(FRITZDECT3011Arbeitszimmer_RadiatorMode,'OFF')
+        sendCommand(AbsenceMode,ON)
+
+		// Goodbye, Indicate that its enabled
+		sendCommand(Ambient_Kueche_Toggle,ON)
+		tRandomLights = createTimer(now.plusSeconds(10)) [|
+			sendCommand(Ambient_Kueche_Toggle,OFF)
+		]
     }
 end
 
@@ -35,16 +44,11 @@ then
   {
 	logInfo("absense_rule", "Alarm Mode was enabled")    
 	Lights_Random.members.forEach [s | logInfo("absense_rule", s.name + " equals " + s.state.toString)]
-	sendCommand(Ambient_Kueche_Toggle,ON)
-	tRandomLights = createTimer(now.plusSeconds(10)) [|
-		sendCommand(Ambient_Kueche_Toggle,OFF)
-	]
+	sendCommand(FRITZDECT3011Arbeitszimmer_RadiatorMode,'OFF')
   }
   else {
 	logInfo("absense_rule", "Alarm Mode was disabled")    
 	sendCommand(Lights,OFF)
-	sendCommand(Ambient_Kueche_Toggle,ON)
-
   }
 end
 
@@ -73,9 +77,9 @@ then
     }
 end
 
-rule "Turn all lights off at 23.10 if alarm is activated"
+rule "Turn all lights off at 23.20 if alarm is activated"
 when
-	Time cron "0 10 23 * * ?"
+	Time cron "0 20 23 * * ?"
 then
 	if (AbsenceMode.state == ON) {
 	 	logInfo("org.openhab","Turning all the random lights off.")
