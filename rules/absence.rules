@@ -2,6 +2,20 @@ var Timer tRandomLights = null
 var Number NightActive = 0
 
 
+rule "Wifi-Absence"
+when
+	 Item AbsenceWifi received update
+then
+	 if(AbsenceWifi.state == ON)
+    {
+        sendCommand(AbsenceMode,ON)
+	}
+	else {
+		sendCommand(AbsenceMode,OFF)
+	}
+end
+
+
 rule "DASH Nerf"
 when
     Item Dash_Nerf received update ON
@@ -54,7 +68,7 @@ end
 
 rule "Randomly turn on & off lights between 07.00-23.00 if before or after sunset and if alarm is activated"
 when
-	Time cron "0 */10 7-23 * * ?"
+	Time cron "0 */15 6-8,17-23 * * ?"
 then
     logInfo("absense_rule", "chron triggered")        
 	if (AbsenceMode.state == ON) {

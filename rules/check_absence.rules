@@ -9,10 +9,15 @@ then
     if (cFboxMacOnline_cn.state==OPEN)
     {
         logInfo("absense_check_wifi", "CN is here")    
+
         sendCommand(CNOut,OFF)
-        sendCommand(AbsenceWifi,OFF)        
         if(TimerOutCN !== null) {
           TimerOutCN.cancel()
+        }
+
+        if (AbsenceWifi.state==ON) {
+            sendCommand(AbsenceWifi,OFF)        
+            logInfo("absense_check_wifi", "Not alone at home anymore!!")    
         }
     }
     else {
@@ -44,10 +49,14 @@ then
     {
         logInfo("absense_check_wifi", "Anne is here")    
         sendCommand(ANOut,OFF)
-        sendCommand(AbsenceWifi,OFF)        
         if(TimerOutAN !== null) {
           TimerOutAN.cancel()
         }
+        if (AbsenceWifi.state==ON) {
+            sendCommand(AbsenceWifi,OFF)        
+            logInfo("absense_check_wifi", "Not alone at home anymore!!!")    
+        }
+
     }
     else {
 
@@ -55,7 +64,7 @@ then
         logInfo("absense_check_wifi", "Anne is not here, timer started")    
         if(TimerOutAN === null) 
         {
-            TimerOutAN = createTimer(now.plusSeconds(30))[|
+            TimerOutAN = createTimer(now.plusSeconds(1200))[|
                 logInfo("absense_check_wifi", "Anne is not here, timer finished, really out")    
                 sendCommand(ANOut,ON)
                 if (CNOut.state==ON) {
