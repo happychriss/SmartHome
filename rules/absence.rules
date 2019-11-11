@@ -4,13 +4,15 @@ var Number NightActive = 0
 
 rule "Wifi-Absence"
 when
-	 Item AbsenceWifi received update
+	 Item AbsenceWifi changed
 then
 	 if(AbsenceWifi.state == ON)
     {
+    logInfo("absabsence_check_wifi", "Not at home, enable absence mode")
         sendCommand(AbsenceMode,ON)
 	}
 	else {
+    logInfo("absabsence_check_wifi", "Back at home, disable absence mode")
 		sendCommand(AbsenceMode,OFF)
 	}
 end
@@ -45,23 +47,24 @@ when
     Channel 'astro:sun:home:civilDusk#event' triggered START
 	
 then
-    logInfo("absense_rule", "Astro - Sun Down (civlDusk")    
+    logInfo("absence_rule", "Astro - Sun Down (civlDusk")    
     NightActive=1
 end
 
 
 rule "Absence Alarm ON"
 when
-    Item AbsenceMode received update
+    Item AbsenceMode changed
 then
   if(AbsenceMode.state == ON)
   {
-	logInfo("absense_rule", "Alarm Mode was enabled")    
-	Lights_Random.members.forEach [s | logInfo("absense_rule", s.name + " equals " + s.state.toString)]
+	logInfo("absence_rule", "Alarm Mode was enabled")    
+	Lights_Random.members.forEach [s | logInfo("absence_rule", s.name + " equals " + s.state.toString)]
 	sendCommand(FRITZDECT3011Arbeitszimmer_RadiatorMode,'OFF')
   }
   else {
-	logInfo("absense_rule", "Alarm Mode was disabled")    
+	logInfo("absence_rule", "Alarm Mode was disabled")    
+	tRandomLights.cancel
 	sendCommand(Lights,OFF)
   }
 end
@@ -70,10 +73,10 @@ rule "Randomly turn on & off lights between 07.00-23.00 if before or after sunse
 when
 	Time cron "0 */15 6-8,17-23 * * ?"
 then
-    logInfo("absense_rule", "chron triggered")        
+    logInfo("absence_rule", "chron triggered")        
 	if (AbsenceMode.state == ON) {
         if (NightActive==1) {
-            logInfo("absense_rule", "Absence - Random Light Setting Active")    
+            logInfo("absence_rule", "Absence - Random Light Setting Active")    
 		    // Only turn a light on/off ocasionally
 	 	    if ((new java.util.Random).nextInt(2) == 1) { 
 	 		    // Create a timer with a random value
@@ -97,6 +100,7 @@ when
 then
 	if (AbsenceMode.state == ON) {
 	 	logInfo("org.openhab","Turning all the random lights off.")
+		tRandomLights.cancel
 	 	sendCommand(Lights_Random, OFF)
         NightActive=0
 	}

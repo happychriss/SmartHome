@@ -1,79 +1,57 @@
 var Timer TimerOutAN
 var Timer TimerOutCN
 
-rule "Absence Christian"
+rule "Absence Christian!"
 when 
     Item cFboxMacOnline_cn changed
 then
+
+    if(TimerOutCN !== null) {
+       TimerOutCN.cancel()
+       TimerOutCN = null
+    }
+
 //OPEN - I am home
     if (cFboxMacOnline_cn.state==OPEN)
     {
-        logInfo("absense_check_wifi", "CN is here")    
-
+        logInfo("absence_check_wifi", "CN is here")    
         sendCommand(CNOut,OFF)
-        if(TimerOutCN !== null) {
-          TimerOutCN.cancel()
-        }
-
-        if (AbsenceWifi.state==ON) {
-            sendCommand(AbsenceWifi,OFF)        
-            logInfo("absense_check_wifi", "Not alone at home anymore!!")    
-        }
     }
     else {
-
 //CLOSED - I am out, if more then x-min, I am really out        
-        logInfo("absense_check_wifi", "CN is not here, timer started")    
-        if(TimerOutCN === null) 
-        {
-            TimerOutCN = createTimer(now.plusSeconds(1200))[|
-                logInfo("absense_check_wifi", "CN is not here, timer finished, really out")    
+        logInfo("absence_check_wifi", "CN is not here, start timer")    
+        TimerOutCN = createTimer(now.plusSeconds(30))[|
+                logInfo("absence_check_wifi", "CN is not here, timer finished, really out")    
                 sendCommand(CNOut,ON)
-                if (ANOut.state==ON) {
-                    logInfo("absense_check_wifi", "Anne is also not here, alone at home")    
-                    sendCommand(AbsenceWifi,ON)
-                }
                 TimerOutCN = null
             ]
-        }
-    
     }
 end
+
 
 rule "Absence Anne"
 when 
     Item cFboxMacOnline_an changed
 then
+
+    if(TimerOutAN !== null) {
+       TimerOutAN.cancel()
+       TimerOutAN = null
+    }
+
 //OPEN - I am home
     if (cFboxMacOnline_an.state==OPEN)
     {
-        logInfo("absense_check_wifi", "Anne is here")    
+        logInfo("absence_check_wifi", "Anne is here")    
         sendCommand(ANOut,OFF)
-        if(TimerOutAN !== null) {
-          TimerOutAN.cancel()
-        }
-        if (AbsenceWifi.state==ON) {
-            sendCommand(AbsenceWifi,OFF)        
-            logInfo("absense_check_wifi", "Not alone at home anymore!!!")    
-        }
-
     }
     else {
-
-//CLOSED - I am out, if more then 60min, I am really out        
-        logInfo("absense_check_wifi", "Anne is not here, timer started")    
-        if(TimerOutAN === null) 
-        {
-            TimerOutAN = createTimer(now.plusSeconds(1200))[|
-                logInfo("absense_check_wifi", "Anne is not here, timer finished, really out")    
+//CLOSED - I am out, if more then x-min, I am really out        
+        logInfo("absence_check_wifi", "Anne is not here, start timer")    
+        TimerOutAN = createTimer(now.plusSeconds(30))[|
+                logInfo("absence_check_wifi", "Anne is not here, timer finished, really out")    
                 sendCommand(ANOut,ON)
-                if (CNOut.state==ON) {
-                    logInfo("absense_check_wifi", "Christian is also not here, alone at home")    
-                    sendCommand(AbsenceWifi,ON)
-                }
                 TimerOutAN = null
             ]
-        }
-    
     }
 end

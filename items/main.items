@@ -11,10 +11,13 @@ Group Lights_Random
 // ****************************************************************************************
 // Detect Absence
 
-Switch ANOut 
-Switch CNOut
-Switch AbsenceWifi
 
+
+Switch ANOut (AbsenceWifi)
+Switch CNOut (AbsenceWifi)
+
+//switch is set to "on" if ANOut and CNOut are set to ON
+Group:Switch:AND(ON,OFF) AbsenceWifi 
 
 // ****************************************************************************************
 // Group Arbeitszimmer
