@@ -71,7 +71,7 @@ end
 
 rule "Randomly turn on & off lights between 07.00-23.00 if before or after sunset and if alarm is activated"
 when
-	Time cron "0 */15 6-8,17-23 * * ?"
+	Time cron "0 */15 6-8,15-23 * * ?"
 then
     logInfo("absence_rule", "chron triggered")        
 	if (AbsenceMode.state == ON) {
